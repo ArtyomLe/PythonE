@@ -1,23 +1,17 @@
 #       Casino 678
-
+from ctypes import *
 import time
 import random
-
-
-# Расскоментировать этот блок при использовании windows os
-# from ctypes import *
 
 valuta = " ₪"
 money = 0
 playGame = True
 defaultMoney = 10000
 
-# windll.Kernel32.GetStHandle.restype = c_ulong
-# h = windll.Kernel32.GetStdHandle(c_ulong(0xfffffff5))
+windll.Kernel32.GetStdHandle.restype = c_ulong
+h = windll.Kernel32.GetStdHandle(c_ulong(0xfffffff5))
 
-
-
-#       Вывод сообщения о выигрыше
+# Вывод сообщения о выигрыше
 
 def pobeda(result):
     color(14)
@@ -25,7 +19,7 @@ def pobeda(result):
     print(f"   У тебя на счету: {money}")
 
 
-#       Вывод сообщения о проигрыше
+# Вывод сообщения о проигрыше
 
 def proigr(result):
     color(12)
@@ -466,7 +460,7 @@ def roulette():
 
 
 
-#       Чтение из файла оставшейся суммы
+# Чтение из файла оставшейся суммы
 
 def loadMoney():
     try:
@@ -479,7 +473,7 @@ def loadMoney():
     return m
 
 
-#       Запись суммы в файл
+# Запись суммы в файл
 
 def saveMoney(moneyToSave):
     try:
@@ -491,26 +485,25 @@ def saveMoney(moneyToSave):
         quit(0)
 
 
-#       Установка цвета текста (win or mac)
-# def color(c):
-#   windll.Kernel32.SetConsoleTextAttribute(h, c) # Это для windows
-def color(c): # Это для mac (pass функция заглушка)
-    pass
+# Установка цвета текста (win or mac)
+def color(c):
+    windll.Kernel32.SetConsoleTextAttribute(h, c) # Это для windows
+# def color(c): # Это для mac (pass функция заглушка)
+#    pass
 
+# Вывод на экран цветного,  обрамлённого звёздочками текста
 
-#       Вывод на экран цветного,  обрамлённого звёздочками текста
-# import os   # Только для Windows
 def colorLine(c, s):
     for i in range(30):
         print()
-#   os.system("cls")  # Вначале программы импортируем библиотеку "import os"
     color(c)
     print("*" * (len(s) + 2))
     print(" " + s)
     print("*" * (len(s) + 2))
+    
+# os.system("cls")  # Вначале программы импортируем библиотеку "import os"
 
-
-#       Функция ввода целого числа
+# Функция ввода целого числа
 def getIntInput(minimum, maximum, message):
     color(7)
     ret = -1
@@ -523,7 +516,7 @@ def getIntInput(minimum, maximum, message):
     return ret
 
 
-#       Функция ввода значения
+# Функция ввода значения
 def getInput(digit, message):
     color(7)
     ret = ""
@@ -532,10 +525,7 @@ def getInput(digit, message):
     return ret
 
 
-#       Запуск игры
-#       Main loop
-
-
+# Запуск игры Main Loop
 def main():
     global money, playGame
 
@@ -591,5 +581,4 @@ def main():
 
 
 main()        
-
 
