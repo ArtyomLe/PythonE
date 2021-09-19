@@ -403,10 +403,10 @@ def roulette():
 
             else:
                 if (number == 37):
-                    printNmuber = "00"
+                    printNumber = "00"
                 elif (number == 38):
                     printNumber = "000"
-                print(f"    Выпало число {printNumber}! ")
+                print(f"    Выпало число{printNumber}! ")
 
 
             # Проверяем ставки и результат
