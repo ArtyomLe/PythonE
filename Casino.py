@@ -8,8 +8,8 @@ money = 0
 playGame = True
 defaultMoney = 10000
 
-windll.Kernel32.GetStdHandle.restype = c_ulong
-h = windll.Kernel32.GetStdHandle(c_ulong(0xfffffff5))
+# windll.Kernel32.GetStdHandle.restype = c_ulong
+# h = windll.Kernel32.GetStdHandle(c_ulong(0xfffffff5))
 
 # Вывод сообщения о выигрыше
 
@@ -486,10 +486,10 @@ def saveMoney(moneyToSave):
 
 
 # Установка цвета текста (win or mac)
-def color(c):
-    windll.Kernel32.SetConsoleTextAttribute(h, c) # Это для windows
-# def color(c): # Это для mac (pass функция заглушка)
-#    pass
+# def color(c):
+#     windll.Kernel32.SetConsoleTextAttribute(h, c) # Это для windows
+def color(c): # Это для mac (pass функция заглушка)
+    pass
 
 # Вывод на экран цветного,  обрамлённого звёздочками текста
 
