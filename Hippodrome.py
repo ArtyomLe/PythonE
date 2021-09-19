@@ -37,6 +37,18 @@ def horsePlaceInWindow():
     horse03.place(x=int(x03), y=180)    # Выводим в окно лошадь 03
     horse04.place(x=int(x04), y=260)    # Выводим в окно лошадь 04
 
+# Формирование значений выпадающего меню
+def getValues(summa):   # summa - это входящий в функцию аргумент (число) которое надо разбить на 10 равных частей
+    value = []  # Переменной value будет назначена роль списка
+    if(summa > 9):
+        for i in range(0, 11):
+            value.append(i * (int(summa) // 10)) # append увеличивает список на указанное в скобках значение
+    else:       # На случай если нет средств на счету
+        value.append(0)
+        if(summa > 0):
+            value.append(summa)
+    return value
+
 
 root = Tk()
 
@@ -177,6 +189,11 @@ stavka03.place(x=280, y=510)
 
 stavka04["state"] = "readonly"
 stavka04.place(x=280, y=540)
+
+stavka01["values"] = getValues(10000)
+stavka02["values"] = getValues(750)
+stavka03["values"] = getValues(5050)
+stavka04["values"] = getValues(3)
 
 root.mainloop()
 
