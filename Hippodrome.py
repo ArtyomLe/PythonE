@@ -5,7 +5,7 @@ from tkinter import ttk
 
 # ==== МЕТОДЫ =============================================================================
 
-#   Информация о сумме средств (чтение / запись) 
+# Чтение из файла оставшейся суммы
 def loadMoney():
     try:
         f = open("money.dat", "r") # Открыть файл с записанной суммой для чтения
@@ -15,7 +15,8 @@ def loadMoney():
         print(f"Файла не существует, задано значение {defaultMoney}{valuta}")
         m = defaultMoney
     return m
-    
+
+# Запись суммы в файл
 def saveMoney(moneyToSave):
     try:
         f = open("money.dat", "w") # Открыть файл с записанной суммой для записи
@@ -25,12 +26,12 @@ def saveMoney(moneyToSave):
         print("Ошибка создания файла, наш ипподром закрывается!")
         quit(0)
 
-#   Добавление строки в текстовый блок (textDiary - имя нашего текстового поля)
+# Добавление строки в текстовый блок (textDiary - имя нашего текстового поля)
 def insertText(s):
     textDiary.insert(INSERT, s + "\n")  # (INSERT)-вставить текст (s) с новой строки (+ "\n")
     textDiary.see(END)
 
-#   Расположение лошадей на экране
+# Расположение лошадей на экране
 def horsePlaceInWindow():
     horse01.place(x=int(x01), y=20)     # Выводим в окно лошадь 01 
     horse02.place(x=int(x02), y=100)    # Выводим в окно лошадь 02
@@ -39,6 +40,7 @@ def horsePlaceInWindow():
 
 
 # Отправляем результат вычитания суммы остальных по отношению к текущей ставок из средств money
+# Или просто метод отвечающий за работу с выпадающим списком (Combobox)
 def refreshCombo(eventObject):
     summ = summ01.get() + summ02.get() + summ03.get() + summ04.get()
     labelAllMoney["text"] = f"У Вас на счету: {int(money - summ)} {valuta}." # левое нижнее окно средств
@@ -48,7 +50,27 @@ def refreshCombo(eventObject):
     stavka03["values"] = getValues(int(money - summ02.get() - summ01.get() - summ04.get()))
     stavka04["values"] = getValues(int(money - summ02.get() - summ03.get() - summ01.get()))
 
-# Формирование значений выпадающего меню
+    if (summ01.get() > 0):  # Подсвечиваем чекбокс1 если сделана ставка
+        horse01Game.set(True)
+    else:
+        horse01Game.set(False)
+
+    if (summ02.get() > 0):  # Подсвечиваем чекбокс2 если сделана ставка
+        horse02Game.set(True)
+    else:
+        horse02Game.set(False)
+
+    if (summ03.get() > 0):  # Подсвечиваем чекбокс3 если сделана ставка
+        horse03Game.set(True)
+    else:
+        horse03Game.set(False)
+
+    if (summ04.get() > 0):  # Подсвечиваем чекбокс4 если сделана ставка
+        horse04Game.set(True)
+    else:
+        horse04Game.set(False)
+
+# Формирование значений выпадающего меню (Combobox)
 def getValues(summa):   # summa - это входящий в функцию аргумент (число) которое надо разбить на 10 равных частей
     value = []  # Переменной value будет назначена роль списка
     if(summa > 9):
@@ -69,17 +91,11 @@ WIDTH = 1024  # Ширина окна программы
 HEIGHT = 600  # Высота окна программы
 
 
-#   Позиции лошадей
+# Позиции лошадей
 x01 = 20
 x02 = 20
 x03 = 20
 x04 = 20
-
-# Ставки на лошадей
-summ01 = IntVar()
-summ02 = IntVar()
-summ03 = IntVar()
-summ04 = IntVar()
 
 # Названия лошадей
 nameHorse01 = "Ананас"
@@ -87,7 +103,7 @@ nameHorse02 = "Сталкер"
 nameHorse03 = "Прожорливый"
 nameHorse04 = "Копытце"
 
-#   Переменные средств на счету
+# Переменные средств на счету
 defaultMoney = 10000
 money = 0
 valuta = "₪"
@@ -123,11 +139,9 @@ horse04 = Label(root, image=horse04_image)
 # Выводим метод с позициями лошадей на экран
 horsePlaceInWindow()    
 
-
 # Выводим кнопку СТАРТ
 startButton = Button(text="СТАРТ", font="arial 20", width=61, background="#37AA37")
 startButton.place(x=20, y=370)
-
 
 # Выводим чат с информацией под стартом
 textDiary = Text(width=70, height=8, wrap=WORD)
@@ -149,7 +163,7 @@ labelAllMoney = Label(text=f"Осталось средств: {money}{valuta}", 
 labelAllMoney.place(x=20, y=565)                                                  
 
 
-# Текст напротив чекбоксов
+# Текст напротив чекбоксов ===================================================================
 labelHorse01 = Label(text="Ставка на лошадь №1")
 labelHorse01.place(x=20, y=450)
 
@@ -163,7 +177,7 @@ labelHorse04 = Label(text="Ставка на лошадь №4")
 labelHorse04.place(x=20, y=540)
 
 
-# Чекбоксы
+# Чекбоксы ====================================================================================
 horse01Game = BooleanVar()
 horse01Game.set(0)
 horseCheck01 = Checkbutton(text=nameHorse01, variable=horse01Game, onvalue=1, offvalue=0)
@@ -181,6 +195,11 @@ horse04Game.set(0)
 horseCheck04 = Checkbutton(text=nameHorse04, variable=horse04Game, onvalue=1, offvalue=0)
 horseCheck04.place(x=150, y=538)
 
+# Запрещаем изменять чекбоксы ==================================================================
+horseCheck01["state"] = "disabled"
+horseCheck02["state"] = "disabled"
+horseCheck03["state"] = "disabled"
+horseCheck04["state"] = "disabled"
 
 # Выпадающие списки Combobox
 stavka01 = ttk.Combobox(root)
@@ -188,7 +207,7 @@ stavka02 = ttk.Combobox(root)
 stavka03 = ttk.Combobox(root)
 stavka04 = ttk.Combobox(root)
 
-# Не редактируемые значения в выпадающих списках
+# Задаём атрибут "только чтение"
 stavka01["state"] = "readonly"
 stavka01.place(x=280, y=450)
 stavka02["state"] = "readonly"
@@ -198,25 +217,32 @@ stavka03.place(x=280, y=510)
 stavka04["state"] = "readonly"
 stavka04.place(x=280, y=540)
 
-# Вызов метода refreshCombo при выборе значения из списка
+# Определяем переменные для хранения значений из Combobox
+summ01 = IntVar()
+summ02 = IntVar()
+summ03 = IntVar()
+summ04 = IntVar()
+
+# Привязываем переменные к Combobox
+# В них будет храниться выбранное в виджете значение
+stavka01["textvariable"] = summ01
+stavka02["textvariable"] = summ02
+stavka03["textvariable"] = summ03
+stavka04["textvariable"] = summ04
+
 stavka01.bind("<<ComboboxSelected>>", refreshCombo)
 stavka02.bind("<<ComboboxSelected>>", refreshCombo)
 stavka03.bind("<<ComboboxSelected>>", refreshCombo)
 stavka04.bind("<<ComboboxSelected>>", refreshCombo)
 
-refreshCombo("") # Задаёт значение сразу всем Combobox
+# Обновляем значения Combobox
+refreshCombo("")
 
-# Высвечивается первое значение в списке
+# Устанавливаем самое первое значение списка
 stavka01.current(0)
 stavka02.current(0)
 stavka03.current(0)
 stavka04.current(0)
-
-# Указываем виджету куда передавать выбранные значения
-stavka01["textvariable"] = summ01
-stavka02["textvariable"] = summ02
-stavka03["textvariable"] = summ03
-stavka04["textvariable"] = summ04
 
 root.mainloop()
 
