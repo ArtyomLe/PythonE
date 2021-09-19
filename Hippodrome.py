@@ -37,6 +37,17 @@ def horsePlaceInWindow():
     horse03.place(x=int(x03), y=180)    # Выводим в окно лошадь 03
     horse04.place(x=int(x04), y=260)    # Выводим в окно лошадь 04
 
+
+# Отправляем результат вычитания суммы остальных по отношению к текущей ставок из средств money
+def refreshCombo(eventObject):
+    summ = summ01.get() + summ02.get() + summ03.get() + summ04.get()
+    labelAllMoney["text"] = f"У Вас на счету: {int(money - summ)} {valuta}." # левое нижнее окно средств
+
+    stavka01["values"] = getValues(int(money - summ02.get() - summ03.get() - summ04.get()))
+    stavka02["values"] = getValues(int(money - summ01.get() - summ03.get() - summ04.get()))
+    stavka03["values"] = getValues(int(money - summ02.get() - summ01.get() - summ04.get()))
+    stavka04["values"] = getValues(int(money - summ02.get() - summ03.get() - summ01.get()))
+
 # Формирование значений выпадающего меню
 def getValues(summa):   # summa - это входящий в функцию аргумент (число) которое надо разбить на 10 равных частей
     value = []  # Переменной value будет назначена роль списка
@@ -63,6 +74,12 @@ x01 = 20
 x02 = 20
 x03 = 20
 x04 = 20
+
+# Ставки на лошадей
+summ01 = IntVar()
+summ02 = IntVar()
+summ03 = IntVar()
+summ04 = IntVar()
 
 # Названия лошадей
 nameHorse01 = "Ананас"
@@ -95,13 +112,10 @@ road.place(x=0, y=17)                    # Выводим изобрж. в ок�
 # Загружаем изображения лошадей и устанавливаем в Label
 horse01_image = PhotoImage(file="horse01.png") # Загружаем изображение
 horse01 = Label(root, image=horse01_image)     # Устанавливаем в Lable
-
 horse02_image = PhotoImage(file="horse02.png") 
-horse02 = Label(root, image=horse02_image)     
-
+horse02 = Label(root, image=horse02_image)
 horse03_image = PhotoImage(file="horse03.png") 
-horse03 = Label(root, image=horse03_image)     
-
+horse03 = Label(root, image=horse03_image)
 horse04_image = PhotoImage(file="horse04.png") 
 horse04 = Label(root, image=horse04_image)     
 
@@ -154,17 +168,14 @@ horse01Game = BooleanVar()
 horse01Game.set(0)
 horseCheck01 = Checkbutton(text=nameHorse01, variable=horse01Game, onvalue=1, offvalue=0)
 horseCheck01.place(x=150, y=448)
-
 horse02Game = BooleanVar()
 horse02Game.set(0)
 horseCheck02 = Checkbutton(text=nameHorse02, variable=horse02Game, onvalue=1, offvalue=0)
 horseCheck02.place(x=150, y=478)
-
 horse03Game = BooleanVar()
 horse03Game.set(0)
 horseCheck03 = Checkbutton(text=nameHorse03, variable=horse03Game, onvalue=1, offvalue=0)
 horseCheck03.place(x=150, y=508)
-
 horse04Game = BooleanVar()
 horse04Game.set(0)
 horseCheck04 = Checkbutton(text=nameHorse04, variable=horse04Game, onvalue=1, offvalue=0)
@@ -177,23 +188,35 @@ stavka02 = ttk.Combobox(root)
 stavka03 = ttk.Combobox(root)
 stavka04 = ttk.Combobox(root)
 
-
+# Не редактируемые значения в выпадающих списках
 stavka01["state"] = "readonly"
 stavka01.place(x=280, y=450)
-
 stavka02["state"] = "readonly"
 stavka02.place(x=280, y=480)
-
 stavka03["state"] = "readonly"
 stavka03.place(x=280, y=510)
-
 stavka04["state"] = "readonly"
 stavka04.place(x=280, y=540)
 
-stavka01["values"] = getValues(10000)
-stavka02["values"] = getValues(750)
-stavka03["values"] = getValues(5050)
-stavka04["values"] = getValues(3)
+# Вызов метода refreshCombo при выборе значения из списка
+stavka01.bind("<<ComboboxSelected>>", refreshCombo)
+stavka02.bind("<<ComboboxSelected>>", refreshCombo)
+stavka03.bind("<<ComboboxSelected>>", refreshCombo)
+stavka04.bind("<<ComboboxSelected>>", refreshCombo)
+
+refreshCombo("") # Задаёт значение сразу всем Combobox
+
+# Высвечивается первое значение в списке
+stavka01.current(0)
+stavka02.current(0)
+stavka03.current(0)
+stavka04.current(0)
+
+# Указываем виджету куда передавать выбранные значения
+stavka01["textvariable"] = summ01
+stavka02["textvariable"] = summ02
+stavka03["textvariable"] = summ03
+stavka04["textvariable"] = summ04
 
 root.mainloop()
 
