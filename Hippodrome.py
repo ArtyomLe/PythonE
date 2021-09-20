@@ -5,6 +5,21 @@ from tkinter import ttk
 
 # ==== МЕТОДЫ =============================================================================
 
+def runHorse():
+    moveHorse()
+
+def moveHorse():
+    global x01, x02, x03, x04
+    # Увеличиваем координату Х первой лошади на единицу
+    x01 += 1
+    # Выводим окно сообщение в котором указываем текущее значение x01
+    messagebox.showinfo("Координата X", f"Ананас сместилась: {x01}")
+
+    # Если координата < 952 (Это расположение поля финиша на изображении)
+    # то заново вызываем метод moveHorse с интервалом в 1000 миллисекунд
+    if (x01 < 952):
+        root.after(1000, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
+
 # Чтение из файла оставшейся суммы
 def loadMoney():
     try:
@@ -44,27 +59,29 @@ def horsePlaceInWindow():
 def refreshCombo(eventObject):
     summ = summ01.get() + summ02.get() + summ03.get() + summ04.get()
     labelAllMoney["text"] = f"У Вас на счету: {int(money - summ)} {valuta}." # левое нижнее окно средств
-
+    # Переменная summ отвечает за хранение суммы всех чисел указананных в выпадающих списках виджетов Combobox
     stavka01["values"] = getValues(int(money - summ02.get() - summ03.get() - summ04.get()))
     stavka02["values"] = getValues(int(money - summ01.get() - summ03.get() - summ04.get()))
     stavka03["values"] = getValues(int(money - summ02.get() - summ01.get() - summ04.get()))
     stavka04["values"] = getValues(int(money - summ02.get() - summ03.get() - summ01.get()))
 
+    if (summ > 0):          # Включаем кнопку старт если ставка сделана
+        startButton["state"] = "normal"
+    else:
+        startButton["state"] = "disabled"
+
     if (summ01.get() > 0):  # Подсвечиваем чекбокс1 если сделана ставка
         horse01Game.set(True)
     else:
         horse01Game.set(False)
-
     if (summ02.get() > 0):  # Подсвечиваем чекбокс2 если сделана ставка
         horse02Game.set(True)
     else:
         horse02Game.set(False)
-
     if (summ03.get() > 0):  # Подсвечиваем чекбокс3 если сделана ставка
         horse03Game.set(True)
     else:
         horse03Game.set(False)
-
     if (summ04.get() > 0):  # Подсвечиваем чекбокс4 если сделана ставка
         horse04Game.set(True)
     else:
@@ -142,6 +159,8 @@ horsePlaceInWindow()
 # Выводим кнопку СТАРТ
 startButton = Button(text="СТАРТ", font="arial 20", width=61, background="#37AA37")
 startButton.place(x=20, y=370)
+startButton["state"] = "disabled"
+
 
 # Выводим чат с информацией под стартом
 textDiary = Text(width=70, height=8, wrap=WORD)
@@ -166,13 +185,10 @@ labelAllMoney.place(x=20, y=565)
 # Текст напротив чекбоксов ===================================================================
 labelHorse01 = Label(text="Ставка на лошадь №1")
 labelHorse01.place(x=20, y=450)
-
 labelHorse02 = Label(text="Ставка на лошадь №2")
 labelHorse02.place(x=20, y=480)
-
 labelHorse03 = Label(text="Ставка на лошадь №3")
 labelHorse03.place(x=20, y=510)
-
 labelHorse04 = Label(text="Ставка на лошадь №4")
 labelHorse04.place(x=20, y=540)
 
@@ -243,6 +259,11 @@ stavka01.current(0)
 stavka02.current(0)
 stavka03.current(0)
 stavka04.current(0)
+
+# Удалить
+stavka01.current(1)
+refreshCombo("")
+startButton["command"] = runHorse
 
 root.mainloop()
 
