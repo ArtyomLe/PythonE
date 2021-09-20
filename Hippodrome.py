@@ -136,10 +136,22 @@ nameHorse02 = "Сталкер"
 nameHorse03 = "Прожорливый"
 nameHorse04 = "Копытце"
 
+# Состояние лошадей (1 - хорошее, 5 - плохое)
+state01 = randint(1, 5)
+state02 = randint(1, 5)
+state03 = randint(1, 5)
+state04 = randint(1, 5)
+
 # Переменные средств на счету
 defaultMoney = 10000
 money = 0
 valuta = "₪"
+
+# Погода (1 - ливень, 5 - ясно)
+weather = randint(1, 5)
+
+# Время суток (1 - ночь, 2 -утро, 3 - день, 4 - вечер)
+timeDay = randint(1, 4)
 
 # ==== ФОРМИРОВАНИЕ ЭЛЛЕМЕНТОВ В ОКНЕ =======================================================
 
@@ -275,12 +287,6 @@ stavka01.current(0)
 stavka02.current(0)
 stavka03.current(0)
 stavka04.current(0)
-
-# Состояние лошадей
-state01 = randint(1, 5)
-state02 = randint(1, 5)
-state03 = randint(1, 5)
-state04 = randint(1, 5)
 
 # Удалить
 stavka01.current(1)
