@@ -6,7 +6,15 @@ from random import randint
 
 # ==== МЕТОДЫ =============================================================================
 
+# При нажатии на кнопку СТАРТ
 def runHorse():
+    global money
+    startButton["state"] = "disabled"
+    stavka01["state"] = "disabled"
+    stavka02["state"] = "disabled"
+    stavka03["state"] = "disabled"
+    stavka04["state"] = "disabled"
+    money -= summ01.get() + summ02.get() + summ03.get() + summ04.get()
     moveHorse()
 
 # Движ лошадей
@@ -26,7 +34,7 @@ def moveHorse():
     horsePlaceInWindow()
 
     if (x01 < 952 and x02 < 952 and x03 < 952 and x04 <952):
-        root.after(5, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
+        root.after(6, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
 
 # Чтение из файла оставшейся суммы
 def loadMoney():
