@@ -26,15 +26,15 @@ def moveHorse():
     speed03 = randint(3, 10) / 10
     speed04 = randint(3, 10) / 10
 
-    x01 += speed01
-    x02 += speed02
-    x03 += speed03
-    x04 += speed04
+    x01 += (speed01 * randint(1, (7 - state01))) / state01
+    x02 += (speed02 * randint(1, (7 - state02))) / state02
+    x03 += (speed03 * randint(1, (7 - state03))) / state03
+    x04 += (speed04 * randint(1, (7 - state04))) / state04
 
     horsePlaceInWindow()
 
     if (x01 < 952 and x02 < 952 and x03 < 952 and x04 <952):
-        root.after(6, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
+        root.after(5, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
 
 # Чтение из файла оставшейся суммы
 def loadMoney():
@@ -275,6 +275,12 @@ stavka01.current(0)
 stavka02.current(0)
 stavka03.current(0)
 stavka04.current(0)
+
+# Состояние лошадей
+state01 = randint(1, 5)
+state02 = randint(1, 5)
+state03 = randint(1, 5)
+state04 = randint(1, 5)
 
 # Удалить
 stavka01.current(1)
