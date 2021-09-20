@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
+from random import randint
 
 # ==== МЕТОДЫ =============================================================================
 
@@ -11,13 +12,20 @@ def runHorse():
 # Движ лошадей
 def moveHorse():
     global x01, x02, x03, x04
-    # Увеличиваем координату Х первой лошади на единицу
-    x01 += 1
-    horse01.place(x=int(x01), y=20) # смещение по оси х на единицу за каждую итерацию
 
-    # Если координата < 952 (Это расположение поля финиша на изображении)
-    # то заново вызываем метод moveHorse с интервалом в 5 миллисекунд
-    if (x01 < 952):
+    speed01 = randint(3, 10) / 10
+    speed02 = randint(3, 10) / 10
+    speed03 = randint(3, 10) / 10
+    speed04 = randint(3, 10) / 10
+
+    x01 += speed01
+    x02 += speed02
+    x03 += speed03
+    x04 += speed04
+
+    horsePlaceInWindow()
+
+    if (x01 < 952 and x02 < 952 and x03 < 952 and x04 <952):
         root.after(5, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
 
 # Чтение из файла оставшейся суммы
