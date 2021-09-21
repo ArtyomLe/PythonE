@@ -6,6 +6,27 @@ from random import randint
 
 # ==== МЕТОДЫ =============================================================================
 
+#
+def loadMoney():
+    try:
+        f = open("money.dat", "r") # Открыть файл с записанной суммой для чтения
+        m = int(f.readline())
+        f.close()
+    except FileNotFoundError:
+        print(f"Файла не существует, задано значение {defaultMoney}{valuta}")
+        m = defaultMoney
+    return m
+
+# Запись суммы в файл
+def saveMoney(moneyToSave):
+    try:
+        f = open("money.dat", "w") # Открыть файл с записанной суммой для записи
+        f.write(str(moneyToSave))
+        f.close()
+    except:
+        print("Ошибка создания файла, наш ипподром закрывается!")
+        quit(0)
+
 # При нажатии на кнопку СТАРТ
 def runHorse():
     global money
@@ -36,33 +57,31 @@ def moveHorse():
     if (x01 < 952 and x02 < 952 and x03 < 952 and x04 <952):
         root.after(5, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
 
-# Чтение из файла оставшейся суммы
-def loadMoney():
-    try:
-        f = open("money.dat", "r") # Открыть файл с записанной суммой для чтения
-        m = int(f.readline())
-        f.close()
-    except FileNotFoundError:
-        print(f"Файла не существует, задано значение {defaultMoney}{valuta}")
-        m = defaultMoney
-    return m
+# Отображение состояния лошадей
+def healthHorse():
+    insertText(getHealth(nameHorse01, state01, winCoeff01))
+    insertText(getHealth(nameHorse02, state02, winCoeff02))
+    insertText(getHealth(nameHorse03, state03, winCoeff03))
+    insertText(getHealth(nameHorse04, state04, winCoeff04))
 
-# Запись суммы в файл
-def saveMoney(moneyToSave):
-    try:
-        f = open("money.dat", "w") # Открыть файл с записанной суммой для записи
-        f.write(str(moneyToSave))
-        f.close()
-    except:
-        print("Ошибка создания файла, наш ипподром закрывается!")
-        quit(0)
+# Состояние лошадей в текстовой переменной
+def getHealth(name, state, win):
+    s = f"Лошадь {name} "
+    if (state == 5):
+        s += "мучается несварением желудка."
+    elif (state == 4):
+        s += "плохо спала. Подёргивается веко."
+    elif (state == 3):
+        s += "сурова и беспощадна."
+    elif (state == 2):
+        s += "в отличном настроении, покушала хорошо."
+    elif (state == 1):
+        s += "просто ракета!"
 
-# Добавление строки в текстовый блок (textDiary - имя нашего текстового поля)
-def insertText(s):
-    textDiary.insert(INSERT, s + "\n")  # (INSERT)-вставить текст (s) с новой строки (+ "\n")
-    textDiary.see(END)
+    s += f" ({win}:1)"
+    return s
 
-# Случайные значения погоды и времени суток для вывода в чат
+# Вывод погоды (случайные значения погоды и времени суток для вывода в чат)
 def viewWeather():
     s = "Сейчас на ипподроме "
     if (timeDay == 1):
@@ -87,6 +106,10 @@ def viewWeather():
 
     insertText(s)
 
+# Добавление строки в текстовый блок (textDiary - имя нашего текстового поля)
+def insertText(s):
+    textDiary.insert(INSERT, s + "\n")  # (INSERT)-вставить текст (s) с новой строки (+ "\n")
+    textDiary.see(END)
 
 # Расположение лошадей на экране
 def horsePlaceInWindow():
@@ -94,7 +117,6 @@ def horsePlaceInWindow():
     horse02.place(x=int(x02), y=100)    # Выводим в окно лошадь 02
     horse03.place(x=int(x03), y=180)    # Выводим в окно лошадь 03
     horse04.place(x=int(x04), y=260)    # Выводим в окно лошадь 04
-
 
 # Отправляем результат вычитания суммы остальных по отношению к текущей ставок из средств money
 # Или просто метод отвечающий за работу с выпадающим списком (Combobox)
@@ -140,7 +162,6 @@ def getValues(summa):   # summa - это входящий в функцию ар
         if(summa > 0):
             value.append(summa)
     return value
-
 
 root = Tk()
 
@@ -326,6 +347,7 @@ refreshCombo("")
 startButton["command"] = runHorse
 
 viewWeather()
+healthHorse()
 
 # Выводим главное окно в экран
 root.mainloop()
