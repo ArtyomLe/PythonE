@@ -42,18 +42,43 @@ def runHorse():
 def moveHorse():
     global x01, x02, x03, x04
 
-    speed01 = randint(3, 10) / 10
-    speed02 = randint(3, 10) / 10
-    speed03 = randint(3, 10) / 10
-    speed04 = randint(3, 10) / 10
+    # Расчитываем скорость для каждой лошади
+    speed01 = (randint(1, timeDay + weather) + randint(1, int((7 - state01)) * 3)) / randint(10, 175)
+    speed02 = (randint(1, timeDay + weather) + randint(1, int((7 - state02)) * 3)) / randint(10, 175)
+    speed03 = (randint(1, timeDay + weather) + randint(1, int((7 - state03)) * 3)) / randint(10, 175)
+    speed04 = (randint(1, timeDay + weather) + randint(1, int((7 - state04)) * 3)) / randint(10, 175)
 
-    x01 += (speed01 * randint(1, (7 - state01))) / state01
-    x02 += (speed02 * randint(1, (7 - state02))) / state02
-    x03 += (speed03 * randint(1, (7 - state03))) / state03
-    x04 += (speed04 * randint(1, (7 - state04))) / state04
+    speed01 *= randint(1, 2 + state01)
+    speed02 *= randint(1, 2 + state02)
+    speed03 *= randint(1, 2 + state03)
+    speed04 *= randint(1, 2 + state04)
+
+    print(speed01)
+
+    # Вправо или влево бежит лошадь?
+    if (not reverse01):
+        x01 += speed01
+    else:
+        x01 -= speed01
+
+    if (not reverse02):
+        x02 += speed02
+    else:
+        x02 -= speed02
+
+    if (not reverse03):
+        x03 += speed03
+    else:
+        x03 -= speed03
+
+    if (not reverse04):
+        x04 += speed04
+    else:
+        x04 -= speed04
 
     horsePlaceInWindow()
 
+    # Если лошади ещё не добежали до финиша, то каждый раз вызываем метод moveHorse
     if (x01 < 952 and x02 < 952 and x03 < 952 and x04 <952):
         root.after(5, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
 
@@ -205,6 +230,22 @@ weather = randint(1, 5)
 
 # Время суток (1 - ночь, 2 -утро, 3 - день, 4 - вечер)
 timeDay = randint(1, 4)
+
+# Маркеры ситуаций
+reverse01 = False
+reverse02 = False
+reverse03 = False
+reverse04 = False
+
+play01 = True
+play02 = True
+play03 = True
+play04 = True
+
+fastSpeed01 = False
+fastSpeed02 = False
+fastSpeed03 = False
+fastSpeed04 = False
 
 # ==== ФОРМИРОВАНИЕ ЭЛЛЕМЕНТОВ В ОКНЕ =======================================================
 
