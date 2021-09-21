@@ -6,7 +6,7 @@ from random import randint
 
 # ==== МЕТОДЫ =============================================================================
 
-#
+# Финансы
 def loadMoney():
     try:
         f = open("money.dat", "r") # Открыть файл с записанной суммой для чтения
@@ -42,6 +42,9 @@ def runHorse():
 def moveHorse():
     global x01, x02, x03, x04
 
+    if (randint(0, 100) < 20):
+        problemHorse()
+
     # Расчитываем скорость для каждой лошади
     speed01 = (randint(1, timeDay + weather) + randint(1, int((7 - state01)) * 3)) / randint(10, 175)
     speed02 = (randint(1, timeDay + weather) + randint(1, int((7 - state02)) * 3)) / randint(10, 175)
@@ -52,8 +55,6 @@ def moveHorse():
     speed02 *= randint(1, 2 + state02)
     speed03 *= randint(1, 2 + state03)
     speed04 *= randint(1, 2 + state04)
-
-    print(speed01)
 
     # Вправо или влево бежит лошадь?
     if (not reverse01):
@@ -81,6 +82,36 @@ def moveHorse():
     # Если лошади ещё не добежали до финиша, то каждый раз вызываем метод moveHorse
     if (x01 < 952 and x02 < 952 and x03 < 952 and x04 <952):
         root.after(5, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
+
+# Метод генерации случайного события (проблемы лошадей)
+def problemHorse():
+    global reverse01, reverse02, reverse03, reverse04
+
+    # Выбираем лошадь для события
+    horse = randint(1, 4)
+    maxRand = 10000 # чем выше число тем ниже вероятность события
+
+    if (horse == 1 and play01 == True and x01 > 0):
+        if(randint(0, maxRand) < state01 * 5):
+            # Маркер движения обратный
+            reverse01 = not reverse01
+            # Сообщаем пользователю(вывод окна)
+            messagebox.showinfo("Аааа!", f"Лошадь {nameHorse01} развернулась и бежит в друю сторону!")
+
+    elif (horse == 2 and play02 == True and x02 > 0):
+        if(randint(0, maxRand) < state02 * 5):
+            reverse02 = not reverse02
+            messagebox.showinfo("Аааа!", f"Лошадь {nameHorse02} развернулась и бежит в друю сторону!")
+
+    elif (horse == 3 and play03 == True and x03 > 0):
+        if(randint(0, maxRand) < state03 * 5):
+            reverse03 = not reverse03
+            messagebox.showinfo("Аааа!", f"Лошадь {nameHorse03} развернулась и бежит в друю сторону!")
+
+    elif (horse == 4 and play04 == True and x04 > 0):
+        if(randint(0, maxRand) < state04 * 5):
+            reverse04 = not reverse04
+            messagebox.showinfo("Аааа!", f"Лошадь {nameHorse04} развернулась и бежит в друю сторону!")
 
 # Отображение состояния лошадей
 def healthHorse():
