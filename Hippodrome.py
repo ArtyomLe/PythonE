@@ -62,6 +62,32 @@ def insertText(s):
     textDiary.insert(INSERT, s + "\n")  # (INSERT)-вставить текст (s) с новой строки (+ "\n")
     textDiary.see(END)
 
+# Случайные значения погоды и времени суток для вывода в чат
+def viewWeather():
+    s = "Сейчас на ипподроме "
+    if (timeDay == 1):
+        s += "ночь, "
+    elif (timeDay == 2):
+        s += "утро, "
+    elif (timeDay == 3):
+        s += "день, "
+    elif (timeDay == 4):
+        s += "вечер, "
+
+    if (weather == 1):
+        s += "льёт сильный дождь."
+    elif (weather == 2):
+        s += "моросит дождик."
+    elif (weather == 3):
+        s += "облачно, на горизонте тучи."
+    elif (weather == 4):
+        s += "безоблачно, ветер."
+    elif (weather == 5):
+        s += "безоблачно, прекрасная погода!."
+
+    insertText(s)
+
+
 # Расположение лошадей на экране
 def horsePlaceInWindow():
     horse01.place(x=int(x01), y=20)     # Выводим в окно лошадь 01 
@@ -293,5 +319,8 @@ stavka01.current(1)
 refreshCombo("")
 startButton["command"] = runHorse
 
+viewWeather()
+
+# Выводим главное окно в экран
 root.mainloop()
 
