@@ -6,6 +6,42 @@ from random import randint
 
 # ==== МЕТОДЫ =============================================================================
 
+def winRound(horse):
+    global x01, x02, x03, x04, money
+
+    res = "К финишу пришла лошадь " # Просто строковая переменная (res результат)
+    if (horse == 1):
+        res += {nameHorse01} # res = "К финишу пришла лошадь" + {nameHorse01}
+        win = summ01.get() * winCoeff01 # win - Переменная, сумма выигрыша(ставка Х коэффициент)
+    elif (horse == 2):
+        res += {nameHorse02}
+        win = summ02.get() * winCoeff02
+    elif (horse == 3):
+        res += {nameHorse03}
+        win = summ03.get() * winCoeff03
+    elif (horse == 4):
+        res += {nameHorse04}
+        win = summ04.get() * winCoeff04
+
+    if (horse > 0):
+        res += f"! Вы выиграли {int(win)} {valuta}. "
+        if (win > 0):
+            res += "Поздравляем! Средства уже зачислены на Ваш счёт!"
+            insertText(f"Этот забег принёс Вам {int(win)} {valuta}.")
+        else:
+            res += "К сожалению, Ваша лошадь была не правильной. Попробуйте ещё раз!"
+            insertText("Делайте ставку! Увеличивайте прибыль!")
+        messagebox.showinfo("РЕЗУЛЬТАТ", res)
+    else:
+        messagebox.showinfo("Всё плохо", "До финиша не дошёл никто. Забег признан не состоявшимся. Все ставки возвращены.")
+        insertText("Забег признан несостоявшимся.")
+        win = summ01.get() + summ02.get() + summ03.get() + summ04.get()
+
+    money += win
+    saveMoney(int(money))
+
+    setupHorse()
+
 # Финансы
 def loadMoney():
     try:
@@ -13,7 +49,7 @@ def loadMoney():
         m = int(f.readline())
         f.close()
     except FileNotFoundError:
-        print(f"Файла не существует, задано значение {defaultMoney}{valuta}")
+        print(f"Файла не существует, задано значение {defaultMoney} {valuta}")
         m = defaultMoney
     return m
 
