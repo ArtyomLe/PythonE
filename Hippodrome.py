@@ -6,6 +6,44 @@ from random import randint
 
 # ==== МЕТОДЫ =============================================================================
 
+#Установка состояния лошадей и погоды
+def setupHorse():
+    global state01, state02, state03 , state04
+    global weather, timeDay
+    global winCoeff01, winCoeff02, winCoeff03, winCoeff04
+    global play01, play02, play03, play04
+    global reverse01, reverse02, reverse03, reverse04
+    global fastSpeed01, fastSpeed02, fastSpeed03, fastSpeed04
+
+    weather = randint(1, 5)
+    timeDay = randint(1, 4)
+
+    state01 = randint(1, 5)
+    state02 = randint(1, 5)
+    state03 = randint(1, 5)
+    state04 = randint(1, 5)
+
+    winCoeff01 = int(100 + randint(1, 30 + state01 *60)) / 100
+    winCoeff02 = int(100 + randint(1, 30 + state02 *60)) / 100
+    winCoeff03 = int(100 + randint(1, 30 + state03 *60)) / 100
+    winCoeff04 = int(100 + randint(1, 30 + state04 *60)) / 100
+
+    # Маркеры ситуаций
+    reverse01 = False
+    reverse02 = False
+    reverse03 = False
+    reverse04 = False
+
+    play01 = True
+    play02 = True
+    play03 = True
+    play04 = True
+
+    fastSpeed01 = False
+    fastSpeed02 = False
+    fastSpeed03 = False
+    fastSpeed04 = False
+
 # Победа лошади
 def winRound(horse):
     global x01, x02, x03, x04, money
@@ -73,6 +111,7 @@ def winRound(horse):
     if (money < 1):
         messagebox.showinfo("Стоп!", "На ипподром без средств заходить нельзя!")
         quit(0)
+
 # Финансы
 def loadMoney():
     try:
