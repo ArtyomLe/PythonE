@@ -23,10 +23,10 @@ def setupHorse():
     state03 = randint(1, 5)
     state04 = randint(1, 5)
 
-    winCoeff01 = int(100 + randint(1, 30 + state01 *60)) / 100
-    winCoeff02 = int(100 + randint(1, 30 + state02 *60)) / 100
-    winCoeff03 = int(100 + randint(1, 30 + state03 *60)) / 100
-    winCoeff04 = int(100 + randint(1, 30 + state04 *60)) / 100
+    winCoeff01 = int(100 + randint(1, 30 + state01 * 60)) / 100
+    winCoeff02 = int(100 + randint(1, 30 + state02 * 60)) / 100
+    winCoeff03 = int(100 + randint(1, 30 + state03 * 60)) / 100
+    winCoeff04 = int(100 + randint(1, 30 + state04 * 60)) / 100
 
     # Маркеры ситуаций
     reverse01 = False
@@ -50,16 +50,16 @@ def winRound(horse):
 
     res = "К финишу пришла лошадь " # Просто строковая переменная (res результат)
     if (horse == 1):
-        res += {nameHorse01} # res = "К финишу пришла лошадь" + {nameHorse01}
+        res += nameHorse01 # res = "К финишу пришла лошадь" + {nameHorse01}
         win = summ01.get() * winCoeff01 # win - Переменная, сумма выигрыша(ставка Х коэффициент)
     elif (horse == 2):
-        res += {nameHorse02}
+        res += nameHorse02
         win = summ02.get() * winCoeff02
     elif (horse == 3):
-        res += {nameHorse03}
+        res += nameHorse03
         win = summ03.get() * winCoeff03
     elif (horse == 4):
-        res += {nameHorse04}
+        res += nameHorse04
         win = summ04.get() * winCoeff04
 
     if (horse > 0):
@@ -187,9 +187,27 @@ def moveHorse():
 
     horsePlaceInWindow()
 
+    # Текущая ситуация
+    allPlay = play01 or play02 or play03 or play04                   # Будет True если ни одна лошадь не движется
+    allX = x01 < 0 and x02 < 0 and x03 < 0 and x04 < 0               # Убежали ли все лошади влево за границы экрана
+    allReverse = reverse01 and reverse02 and reverse03 and reverse04 # Все движутся в обратном направлении
+
+    if (not allPlay or allX or allReverse):
+        winRound(0)
+        return 0
+
     # Если лошади ещё не добежали до финиша, то каждый раз вызываем метод moveHorse
     if (x01 < 952 and x02 < 952 and x03 < 952 and x04 <952):
         root.after(5, moveHorse) # .after() обязательно вызывается от имени главного окна (root)
+    else:
+        if (x01 >= 952):
+            winRound(1)
+        elif (x02 >= 952):
+            winRound(2)
+        elif (x03 >= 952):
+            winRound(3)
+        elif (x04 >= 952):
+            winRound(4)
 
 # Метод генерации случайного события (проблемы лошадей)
 def problemHorse():
@@ -548,9 +566,7 @@ stavka02.current(0)
 stavka03.current(0)
 stavka04.current(0)
 
-# Удалить
-stavka01.current(1)
-refreshCombo("")
+# Назначаем метод выполняющийся при нажатии на СТАРТ
 startButton["command"] = runHorse
 
 viewWeather()
