@@ -6,6 +6,7 @@ from random import randint
 
 # ==== МЕТОДЫ =============================================================================
 
+# Победа лошади
 def winRound(horse):
     global x01, x02, x03, x04, money
 
@@ -40,8 +41,38 @@ def winRound(horse):
     money += win
     saveMoney(int(money))
 
+    # Сброс переменных
     setupHorse()
 
+    # Сбрасываем виджеты
+    startButton["state"] = "normal"
+    stavka01["state"] = "readonly"
+    stavka02["state"] = "readonly"
+    stavka03["state"] = "readonly"
+    stavka04["state"] = "readonly"
+
+    stavka01.current(0)
+    stavka02.current(0)
+    stavka03.current(0)
+    stavka04.current(0)
+
+    # Сбрасываем координаты и перерисовываем
+    x01 = 20
+    x02 = 20
+    x03 = 20
+    x04 = 20
+    horsePlaceInWindow()
+
+    # Обновляем интерфейс
+    refreshCombo(eventObject="")  # Обновляет выпадающие списки и чекбосы
+    viewWeather()  # Выводит в чат погоду
+    healthHorse()  # Выводит в чат информацию о лошадях
+    insertText(f"Ваши средства: {int(money)} {valuta}.")  # Выводит в чат информацию о доступной сумме
+
+    # Закрываем программу если сумма средств на счету меньше 1
+    if (money < 1):
+        messagebox.showinfo("Стоп!", "На ипподром без средств заходить нельзя!")
+        quit(0)
 # Финансы
 def loadMoney():
     try:
