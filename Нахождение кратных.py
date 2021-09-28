@@ -10,6 +10,9 @@ for i in range(3):
             if (p1 == -1):
                 p1 = i
                 p2 = j
+                break # Прерываем оба цикла, здесь for j
+    if (p1 != -1):
+        break # Прерываем оба цикла, здесь for i
 if (p1 != -1):
     print(f"Индексы первого кратного 17 элемента [{p1}][{p2}]")
 else:
@@ -21,7 +24,7 @@ list2D = [[10, 15, 25, 20, 30], [52, 11, 17, 63, 25], [14, 28, 10, 10, 17]]
 find = False
 x = 0
 
-while(x < len(list2D) and not find):
+while(x < len(list2D) and not find): # цикл работает пока значение индекса по х меньше чем кол-во строк списка
     y = 0
     while (y < len(list2D[x]) and not find):
         if (list2D[x][y] % 17 == 0):
