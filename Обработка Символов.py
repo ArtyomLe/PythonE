@@ -26,3 +26,23 @@ print(f"После: {strIn}")
 # После: Молоко
 # ===============================================
 
+messageIn = "АП"
+messageOut = ""
+
+if(messageIn[0] == "А"):
+    messageOut += messageIn[1]
+print(messageOut)
+
+print("\n")
+
+# ================================================
+s = "ЙЙЙАПАРАИАВАЕФЫВФЫВАТ"
+p1 = 0
+
+while(p1 < len(s)):
+    if (s[p1] == "А"):
+        count += 1
+        print(f"{s[p1 + 1]}", end="")
+        p1 += 2
+    else:
+        p1 += 1
