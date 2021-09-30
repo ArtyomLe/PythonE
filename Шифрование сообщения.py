@@ -13,4 +13,3 @@ for i in range(len(sIn)):
         sOut += "Б"
     sOut += sIn[i]
 print(f"Зашифрованная строка: {sOut}")
-
