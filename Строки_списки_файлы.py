@@ -1,13 +1,19 @@
-#                                Формируем и возвращаем текст для записи
+#   Полный код функции возвращающей двумерный список из содержимого файла
 
-def getStringToFile(arr):
-    ret = ""
-
-    for i in range(len(arr)):
-        ret += arr[i][0] + "#" + str(getAverage(arr[i])) + "\n"  # преобразование str() для конкатенации
+def getFileString(filename):
+    ret = []                                      # Создаём список, который вернём
+    try:                                          # Потенциально небезопасная ситуация(используем try)
+        f = open(filename, "r", encoding="utf-8") # Получаем "паспорт" файла в переменную f дескриптор
+        for line in f.readlines():                # Обрабатываем каждую строку информации из файла
+            line = line.replace("\n", "")         # Убираем вертикальный пробел "/n" заменяя его ""
+            line = line.split("#")                # Разбиваем строку по знаку # и заносим в одномерный список
+            ret.append(line)                      # Создаём двумерный очищенный список
+        f.close()                                 # Закрываем паспорт дескриптор
+    except:
+        print("Ошибка открытия файла! Проверьте правильность имени и пути.")
     return ret
 
-#                                  Функция поиска среднего в списке
+#    Функция поиска среднего в списке
 
 def getAverage(line):
     ret = 0
@@ -24,25 +30,33 @@ def getAverage(line):
     return ret
 
 
-#                  Полный код функции возвращающей двумерный список из содержимого файла
+#    Формируем и возвращаем текст для записи
 
-def getFileString(filename):
-    ret = []                                      # Создаём список, который вернём
-    try:                                          # Потенциально небезопасная ситуация(используем try)
-        f = open(filename, "r", encoding="utf-8") # Получаем "паспорт" файла в переменную f дескриптор
-        for line in f.readlines():                # Обрабатываем каждую строку информации из файла
-            line = line.replace("\n", "")         # Убираем вертикальный пробел "/n" заменяя его ""
-            line = line.split("#")                # Разбиваем строку по знаку # и заносим в одномерный список
-            ret.append(line)                      # Создаём двумерный очищенный список
-        f.close()                                 # Закрываем паспорт дескриптор
-    except:
-        print("Ошибка открытия файла! Проверьте правильность имени и пути.")
+def getStringToFile(arr):
+    ret = ""
+
+    for i in range(len(arr)):
+        ret += arr[i][0] + "#" + str(getAverage(arr[i])) + "\n"  # преобразование str() для конкатенации
     return ret
 
-journal = getFileString("journal.dat") #
 
-for i in range(len(journal)):
+#     Записываем переданную информацию в файл
+
+def saveToFile(strToFile, filename):
+    try:
+        f = open(filename, "w", encoding="utf-8") # что и как открыть
+        f.write(strToFile)                        # что туда записать
+        f.close()
+    except:
+        print("Ошибка создания файла.")
+
+
+journal = getFileString("journal.dat")              # Переменная на файл где хранятся списки для считывания
+
+for i in range(len(journal)):                       # Вывод списка средней оценки на экран
     print(f"{journal[i][0]}, Средняя оценка: {getAverage(journal[i])}")
+
+saveToFile(getStringToFile(journal), "average.dat") # Куда записать данные(если уже сущ. такой файл, то перезаписать)
 
 
 #                                            Пояснения ниже
