@@ -1,3 +1,12 @@
+#                                Формируем и возвращаем текст для записи
+
+def getStringToFile(arr):
+    ret = ""
+
+    for i in range(len(arr)):
+        ret += arr[i][0] + "#" + str(getAverage(arr[i])) + "\n"  # преобразование str() для конкатенации
+    return ret
+
 #                                  Функция поиска среднего в списке
 
 def getAverage(line):
@@ -22,7 +31,7 @@ def getFileString(filename):
     try:                                          # Потенциально небезопасная ситуация(используем try)
         f = open(filename, "r", encoding="utf-8") # Получаем "паспорт" файла в переменную f дескриптор
         for line in f.readlines():                # Обрабатываем каждую строку информации из файла
-            line = line.replace("\n", "")        # Убираем вертикальный пробел "/n" заменяя его ""
+            line = line.replace("\n", "")         # Убираем вертикальный пробел "/n" заменяя его ""
             line = line.split("#")                # Разбиваем строку по знаку # и заносим в одномерный список
             ret.append(line)                      # Создаём двумерный очищенный список
         f.close()                                 # Закрываем паспорт дескриптор
@@ -30,7 +39,7 @@ def getFileString(filename):
         print("Ошибка открытия файла! Проверьте правильность имени и пути.")
     return ret
 
-journal = getFileString("journal.dat")
+journal = getFileString("journal.dat") #
 
 for i in range(len(journal)):
     print(f"{journal[i][0]}, Средняя оценка: {getAverage(journal[i])}")
