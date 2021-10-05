@@ -63,7 +63,7 @@ tInput.bind("<Button-3>", setMenuPos)
 btnCode = Button(text="Шифровать", width=25, command=goCode)       # Переменная для кнопки шифрования справа вверху
 btnCode.place(x=600, y=20)                                         # позиция в окне
 
-btnDecode = Button(text="Дешифровать", width=25, command=godeCode) # Переменная для кнопки дешифрования справа вверху
+btnDecode = Button(text="Дешифровать", width=25, command=goDecode) # Переменная для кнопки дешифрования справа вверху
 btnDecode.place(x=600, y=50)                                       # позиция в окне
 
 # Радиокнопки(checkbox)
