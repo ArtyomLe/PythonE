@@ -1,5 +1,20 @@
 from tkinter import *
 
+def goDecode():
+
+def goCode():
+
+def clearText():
+
+def resToDef():
+
+def pasteFromClipboard():
+
+def copyToClipboard():
+
+def setMenuPos():
+
+# ----------------------------------------------------------------------------------------------------------------------
 # Инициализация окна
 root = Tk()
 root.resizable(False, False)
@@ -11,7 +26,7 @@ HEIGHT = 320
 POS_X = root.winfo_screenwidth() // 2 - WIDTH // 2
 POS_Y = root.winfo_screenheight() // 2 - HEIGHT // 2
 root.geometry(f"{WIDTH}x{HEIGHT}+{POS_X}+{POS_Y}")
-
+# ----------------------------------------------------------------------------------------------------------------------
 # Текстовые метки
 textInput = Label(text="Введите исходный текст:")
 textInput.place(x=2, y=1)
@@ -66,6 +81,7 @@ algo01.place(x=600, y=120)                                              # Рас
 algo02.place(x=600, y=140)
 algo03.place(x=600, y=160)
 algo04.place(x=600, y=180)
-
+# ----------------------------------------------------------------------------------------------------------------------
+# mainloop
 root.mainloop()
 
