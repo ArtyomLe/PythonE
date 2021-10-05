@@ -51,8 +51,21 @@ btnCode.place(x=600, y=20)                                         # позиц�
 btnDecode = Button(text="Дешифровать", width=25, command=godeCode) # Переменная для кнопки дешифрования справа вверху
 btnDecode.place(x=600, y=50)                                       # позиция в окне
 
-# Радиокнопки
+# Радиокнопки(checkbox)
+textAlgo = Label(text="Алгоритм:")
+textAlgo.place(x=600, y=100)
+rBtn = IntVar()
+rBtn.set(0)
 
+algo01 = Radiobutton(text="Инвертировать", variable=rBtn, value=0)      # Задаём переменные со значениями (0 -> 3)
+algo02 = Radiobutton(text="Замена с соседней", variable=rBtn, value=1)
+algo03 = Radiobutton(text="+1", variable=rBtn, value=2)
+algo04 = Radiobutton(text="+позиция (до 33)", variable=rBtn, value=3)
+
+algo01.place(x=600, y=120)                                              # Расположение радиокнопок в окне (1 -> 4)
+algo02.place(x=600, y=140)
+algo03.place(x=600, y=160)
+algo04.place(x=600, y=180)
 
 root.mainloop()
 
