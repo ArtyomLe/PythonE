@@ -37,6 +37,22 @@ scrollOutput.place(x=570, y=180, height=132)              # Позиция на 
 tOutput["yscrollcommand"] = scrollOutput.set
 
 # Меню на правую кнопку
+menuInput = Menu(tearoff=False)                                                # Задаём переменную на меню правой кнопки
+menuInput.add_command(label="Копировать результат", command=copyToClipboard)      # Что выводит в меню на первой строчке
+menuInput.add_command(label="Вставить в исходный текст", command=pasteFromClipboard) # и какие функции при этом вызываем
+menuInput.add_command(label="Результат -> Исходный", command=resToDef)               # всего 4 опции и у каждой функция
+menuInput.add_command(label="Очистить текст", command=clearText)
+tInput.bind("<Button-3>", setMenuPos)
+
+# Две правые кнопки шифрования\дешифрования вверху на чекбоксами
+btnCode = Button(text="Шифровать", width=25, command=goCode)       # Переменная для кнопки шифрования справа вверху
+btnCode.place(x=600, y=20)                                         # позиция в окне
+
+btnDecode = Button(text="Дешифровать", width=25, command=godeCode) # Переменная для кнопки дешифрования справа вверху
+btnDecode.place(x=600, y=50)                                       # позиция в окне
+
+# Радиокнопки
+
 
 root.mainloop()
 
