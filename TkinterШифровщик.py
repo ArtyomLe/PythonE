@@ -3,6 +3,17 @@ from tkinter import *
 def goDecode():
 
 def goCode():
+    tOutput.delete(1.0, END)
+    tIn = tInput.get(1.0, END)
+    tIn = tIn[0:len(tIn) - 1]                   # Убираем перенос строки
+    tOut = ""
+    if (rBtn.get() == 0):
+        for i in range(len(tIn) - 1, -1, -1):
+            tOut += tIn[i]                      # Инверсия
+    elif (rBtn.get() ==  1):
+        for i in range(len(tIn) - 1, 2):
+            tOut += tIn[i + 1] + tIn[i]         # Замена с соседней
+    elif
 
 def clearText():
 
