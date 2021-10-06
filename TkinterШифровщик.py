@@ -1,6 +1,22 @@
 from tkinter import *
 
 def goDecode():
+    if (rBtn.get() == 0 or rBtn.get() == 1):
+        goCode()
+    else:
+        tOutput.delete(1.0, END)
+        tIn = tInput.get(1.0, END)
+        tIn = tIn[0:len(tIn) - 1]
+        tOut = ""
+        if (rBtn.get() == 2):
+            for i in range(len(tIn)):
+                tOut += chr(ord(tIn[i]) - 1)
+        elif (rBtn.get() == 3):
+            p = 0
+            for i in range(len(tIn)):
+                tOut += chr(ord(tIn[i]) - p)
+                p = (p+1) % 33
+        tOutput.insert(1.0, tOut)
 
 
 def goCode():
