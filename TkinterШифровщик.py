@@ -1,24 +1,25 @@
 from tkinter import *
 
+# Расшифровка ======================================================================
 def goDecode():
-    if (rBtn.get() == 0 or rBtn.get() == 1):
-        goCode()
+    if (rBtn.get() == 0 or rBtn.get() == 1):   # Первые два вида расшифровки
+        goCode()                               # идентичные как в шифровке
     else:
         tOutput.delete(1.0, END)
         tIn = tInput.get(1.0, END)
-        tIn = tIn[0:len(tIn) - 1]
+        tIn = tIn[0:len(tIn) - 1]              # Убираем перенос строки
         tOut = ""
         if (rBtn.get() == 2):
             for i in range(len(tIn)):
-                tOut += chr(ord(tIn[i]) - 1)
+                tOut += chr(ord(tIn[i]) - 1)   # Увеличение кода символа на 1
         elif (rBtn.get() == 3):
             p = 0
             for i in range(len(tIn)):
-                tOut += chr(ord(tIn[i]) - p)
-                p = (p+1) % 33
+                tOut += chr(ord(tIn[i]) - p)   # Смещение по коду циклически до 33
+                p = (p + 1) % 33
         tOutput.insert(1.0, tOut)
 
-
+# Шифровка =========================================================================
 def goCode():
     tOutput.delete(1.0, END)
     tIn = tInput.get(1.0, END)
@@ -28,7 +29,7 @@ def goCode():
         for i in range(len(tIn) - 1, -1, -1):
             tOut += tIn[i]                      # Инверсия
     elif (rBtn.get() ==  1):
-        for i in range(len(tIn) - 1, 2):
+        for i in range(0, len(tIn) - 1, 2):
             tOut += tIn[i + 1] + tIn[i]         # Замена с соседней
     elif (rBtn.get() == 2):
         for i in range(len(tIn)):
@@ -40,15 +41,33 @@ def goCode():
             p = (p + 1) % 33
     tOutput.insert(1.0, tOut)
 
+# Очистить текст =====================================================================
 def clearText():
+    tInput.delete(1.0, END)
+    tOutput.delete(1.0, END)
 
+# Результат -> Исходный ==============================================================
 def resToDef():
+    tInput.delete(1.0 , END)
+    txt = tOutput.get(1.0, END)
+    txt = txt[0:len(txt) - 1]
+    tInput.insert(1.0, txt)
 
+# Вставить в исходный текст ==========================================================
 def pasteFromClipboard():
+    try:
+        tInput.insert(END, root.clipboard_get())
+    except:
+        tInput.insert(END, "\nОшибка: буфер пуст")
 
+# Вставить в исходный текст ===========================================================
 def copyToClipboard():
+    root.clipboard_clear();
+    root.clipboard_append(tOutput.get(1.0, END))
 
-def setMenuPos():
+# =====================================================================================
+def setMenuPos(event):
+    menuInput.post(event.x_root, event.y_root)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Инициализация окна
