@@ -2,6 +2,7 @@ from tkinter import *
 
 def goDecode():
 
+
 def goCode():
     tOutput.delete(1.0, END)
     tIn = tInput.get(1.0, END)
@@ -13,7 +14,15 @@ def goCode():
     elif (rBtn.get() ==  1):
         for i in range(len(tIn) - 1, 2):
             tOut += tIn[i + 1] + tIn[i]         # Замена с соседней
-    elif
+    elif (rBtn.get() == 2):
+        for i in range(len(tIn)):
+            tOut += chr(ord(tIn[i]) + 1)        # Увеличение кода символа на 1
+    elif (rBtn.get() == 3):
+        p = 0
+        for i in range(len(tIn)):
+            tOut += chr(ord(tIn[i]) + p)        # Смещение по коду циклически до 33
+            p = (p + 1) % 33
+    tOutput.insert(1.0, tOut)
 
 def clearText():
 
