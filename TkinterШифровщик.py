@@ -25,15 +25,19 @@ def goCode():
     tIn = tInput.get(1.0, END)
     tIn = tIn[0:len(tIn) - 1]                   # Убираем перенос строки
     tOut = ""
-    if (rBtn.get() == 0):
-        for i in range(len(tIn) - 1, -1, -1):
-            tOut += tIn[i]                      # Инверсия
-    elif (rBtn.get() ==  1):
-        for i in range(0, len(tIn) - 1, 2):
-            tOut += tIn[i + 1] + tIn[i]         # Замена с соседней
-    elif (rBtn.get() == 2):
+    if (rBtn.get() == 0):                       # Инверсия (Мир => риМ)
+        for i in range(len(tIn) - 1, -1, -1):   # Слово "мир" => (3-1, -1, -1) от 2 до -1 с шагом -1
+            tOut += tIn[i]                      # Счётчик сработает 3 раза tIn[2], tIn[1], tIn[0]) "рим"
+
+    elif (rBtn.get() ==  1):                    # Замена с соседней (Привет => рПвите)
+        for i in range(0, len(tIn) - 1, 2):     # Слово "Привет" => (0, 6-1, 2) от 0 до 5 с шагом 2 => "П и е "
+                                                # Счётчик сработает 3 раза, но мы добавляем конкатенацию
+            tOut += tIn[i + 1] + tIn[i]         # [0+1]+[0]=рП, [2+1]+[2]=ви, [4+1]+[4]=те. рП+ви+те=рПвите
+
+    elif (rBtn.get() == 2):                     # Увеличение кода символа на 1
         for i in range(len(tIn)):
-            tOut += chr(ord(tIn[i]) + 1)        # Увеличение кода символа на 1
+            tOut += chr(ord(tIn[i]) + 1)        #
+
     elif (rBtn.get() == 3):
         p = 0
         for i in range(len(tIn)):
@@ -91,16 +95,15 @@ textOutput.place(x=2, y=157)
 # Текстовые поля
 tInput = Text(width=70, height=8, wrap=WORD)              # Размеры окна ввода
 tInput.place(x=5, y=20)                                   # Начало координат окна ввода
-tInput.insert(1.0, """Экземпляры Checkbutton также могут быть визуально оформлены в группу,
-но каждый флажок независим от остальных. Каждый может быть в состоянии "установлен" или "снят",
-независимо от состояния других флажков. Другими словами в группе Checkbutton можно сделать
-множественный выбор, в группе Radiobutton - нет.""")
+tInput.insert(1.0, """Введите здесь текст который хотите зашифровать""")
+
 scrollInput = Scrollbar(command=tInput.yview, width=20)   # Переменная полосы прокрутки ввода
 scrollInput.place(x=570, y=20, height=132)                # Позиция на экране полосы прокрутки ввода
 tInput["yscrollcommand"] = scrollInput.set
 # = = = = = = = = = = = = = = = = = = = = =
 tOutput = Text(width=70, height=8, wrap=WORD)             # Размеры окна вывода
 tOutput.place(x=5, y=180)                                 # Начало координат окна вывода
+tOutput.insert(1.0, "Здесь появится шифр в зависимости от метода шифрования")
 
 scrollOutput = Scrollbar(command=tOutput.yview, width=20) # Переменная полосы прокрутки вывода
 scrollOutput.place(x=570, y=180, height=132)              # Позиция на экране полосы прокрутки вывода
