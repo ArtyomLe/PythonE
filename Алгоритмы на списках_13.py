@@ -238,15 +238,20 @@ def getIndexArray(myList):
     ret = []
     for i in range(len(myList)):
         for j in range(len(myList[i])):
-            ret.append([])
-            ret[(i * len(myList)) + j].append(i)
-            ret[(i * len(myList)) + j].append(j)
-
+            ret.append([])                       # []
+            ret[(i * len(myList)) + j].append(i) # 0 0 0 0 1 1 1 1 2 2 ...
+            ret[(i * len(myList)) + j].append(j) # 0 1 2 3 0 1 2 3 0 1 ...
+                                                 # [(i * len(myList)) + j] => [0 * 4 + 0], [0 * 4 + 1], [0 * 4 + 2]...
     return ret
 
 a = [[16, 6, 11, 7], [5, 12, 13, 14], [3, 9, 15, 10], [1, 4, 8, 2]]
-idx = getIndexArray(a)                              # Вызываем функцию "getIndexArray" и передаём в неё список "a"
+idx = getIndexArray(a)                           # Вызываем функцию "getIndexArray" и передаём в неё список "a"
 for i in idx:
-    print(i)
+    print(i, end="")
+# РЕЗУЛЬТАТ: [0, 0][0, 1][0, 2][0, 3][1, 0][1, 1][1, 2][1, 3][2, 0][2, 1][2, 2][2, 3][3, 0][3, 1][3, 2][3, 3]
 
 # Теперь сортируем по полученым индексам
+def getSortedArray(myList, idx):
+    for i in range(len(idx) - 1):
+        for j in range(len(idx) - 1 - i):
+
