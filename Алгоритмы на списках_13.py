@@ -244,14 +244,24 @@ def getIndexArray(myList):
                                                  # [(i * len(myList)) + j] => [0 * 4 + 0], [0 * 4 + 1], [0 * 4 + 2]...
     return ret
 
-a = [[16, 6, 11, 7], [5, 12, 13, 14], [3, 9, 15, 10], [1, 4, 8, 2]]
-idx = getIndexArray(a)                           # Вызываем функцию "getIndexArray" и передаём в неё список "a"
-for i in idx:
-    print(i, end="")
 # РЕЗУЛЬТАТ: [0, 0][0, 1][0, 2][0, 3][1, 0][1, 1][1, 2][1, 3][2, 0][2, 1][2, 2][2, 3][3, 0][3, 1][3, 2][3, 3]
 
 # Теперь сортируем по полученым индексам
 def getSortedArray(myList, idx):
     for i in range(len(idx) - 1):
-        for j in range(len(idx) - 1 - i):
+        for j in range(len(idx) - 1 - i):                    # 16 - 1 - 0, 16 - 1 - 1, 16 - 1 - 2...
+            if (myList[idx[j][0]][idx[j][1]] > myList[idx[j + 1][0]][idx[j + 1][1]]):
 
+                myList[idx[j][0]][idx[j][1]], myList[idx[j + 1][0]][idx[j + 1][1]] = myList[idx[j + 1][0]][idx[j + 1][1]], myList[idx[j][0]][idx[j][1]]
+    return myList
+
+a = [[16, 6, 11, 7], [5, 12, 13, 14], [3, 9, 15, 10], [1, 4, 8, 2]]
+idx = getIndexArray(a)                           # Вызываем функцию "getIndexArray" и передаём в неё список "a"
+
+print(f"Исходный список:\n{a}\n\nОтсортированный:\n{getSortedArray(a, idx)}")
+
+# Исходный список:
+# [[16, 6, 11, 7], [5, 12, 13, 14], [3, 9, 15, 10], [1, 4, 8, 2]]
+
+# Отсортированный:
+# [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
