@@ -37,11 +37,13 @@ print(nod(75, 30))                  # Вызываем функию НОД и п
 
 # NOD => НАИБОЛЬШИЙ ОБЩИЙ ДЕЛИТЕЛЬ(Рекурсия)
 def nod(a, b):
-    if(a == 0 or b == 0):
-        return a + b
-    if (a > b):
-        return nod(a % b, b)
-    else:
-        return nod(a, b % a)
+    if(a == 0 or b == 0):     #      75    and    30      |      15    and    30      |     15    and    0      |
+        return a + b          #                           |                           |   return 15 + 0 (15)    |
+    if (a > b):               #                           |                           |                         |
+        return nod(a % b, b)  # return nod(75%30(15), 30) |                           |                         |
+    else:                     #                           |                           |                         |
+        return nod(a, b % a)  #                           | return nod(15, 30%15(0) ) |                         |
 
-print(nod(75, 30))
+# return nod  =>   Вернёт значения в начало функции def nod(a, b) т.е это цикл который выполняется внутри самой функции
+# return      =>              Вернёт значения за пределы функции туда откуда она была изначально вызвана
+print(nod(75, 30))                  # Вызываем функию НОД и печатаем её результат
