@@ -1,4 +1,4 @@
-"""
+
 def req(n):    # 5 => n | print 5 | 5 > 0 | 5 - 1 = 4 | print 4 ...
     print(n)
     if(n > 0):
@@ -77,7 +77,7 @@ def sumDigit(n):
     return summa
 
 print(sumDigit(354))
-"""
+
 # Рекурсия вывод отдельных чисел =>    COPY          =>       COPY         =>          COPY        =>          COPY
 def sumDigit(n):            # sumDigit(354):         | sumDigit(35):         | sumDigit(3):         | sumDigit(0):   |
     if (n > 0):             #   if (354 > 0):        |   if (35 > 0):        |    if (3 > 0):       |   if (0 > 0):  |
