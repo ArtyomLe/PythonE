@@ -78,5 +78,11 @@ def sumDigit(n):
 
 print(sumDigit(354))
 """
+# Рекурсия вывод отдельных чисел =>    COPY          =>       COPY         =>          COPY        =>          COPY
+def sumDigit(n):            # sumDigit(354):         | sumDigit(35):         | sumDigit(3):         | sumDigit(0):   |
+    if (n > 0):             #   if (354 > 0):        |   if (35 > 0):        |    if (3 > 0):       |   if (0 > 0):  |
+        sumDigit(n // 10)   #       sumDigit(354//10)|      sumDigit(35//10) |      sumDigit(3//10) |      false     |
+        print(n % 10)       #     print(n%10) = 4   <=   print(n%10) = 5   <=   print(n%10) = 3  <= Возвращение рекурсии
 
+sumDigit(354)
 
