@@ -19,6 +19,7 @@ def qsort(a):
                 sp3.append(i)
             else:
                 sp2.append(i)
+
         return qsort(sp1) + sp2 + qsort(sp3)
 
     else:
