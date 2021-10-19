@@ -85,4 +85,40 @@ print(a)
 a[0] = "Хэх!"
 print(a)
 """
+print("\n")
 
+
+def qsort(a, startElement, endElement):
+    # Если левая граница больше правой, то прерываем метод с помощью return
+    if (startElement >= endElement):
+        return
+
+    # Вычисляем average
+    # 1. С помощью среднего арифметического списка a
+    average = sum(a[startElement:endElement]) // (endElement - startElement)
+    # 2. С помощью центрального элемента списка a
+    # average = a[startElement + (endElement - startElement) // 2]
+
+    first = startElement
+    last = endElement
+
+    while (first <= last):
+        # Находим индекс левого элемента, который больше или равен опорному числу
+        while (a[first] < average):
+            first += 1
+        # Находим индекс правого элемента, который меньше или равен опорному числу
+        while (a[last] > average):
+            last -= 1
+
+        if (first <= last):
+            a[first], a[last] = a[last], a[first]
+            first += 1
+            last -= 1
+
+    qsort(a, startElement, last) # Левая часть списка
+    qsort(a, first, endElement)  # Правая часть списка
+
+a = [5, 8, 1, 5, 3, 5, 2, 0, 2, 5, 2]
+print(a)
+qsort(a, 0, len(a) - 1) # 0 == startElement(индекс левой границы списка) | len(a)-1 == endElement(индекс правой границы)
+print(a)
