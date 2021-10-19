@@ -74,3 +74,15 @@ a = [5, 8, 1, 5, 3, 5, 2, 0, 5, 2]
 print(a)
 a = qsort(a)
 print(a)
+
+"""
+def sp(spisok):
+    spisok[0] = "Хех!"
+
+a = [1, 2, 3]
+print(a)
+# sp(a)
+a[0] = "Хэх!"
+print(a)
+"""
+
