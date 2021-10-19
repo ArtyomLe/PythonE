@@ -87,7 +87,7 @@ print(a)
 """
 print("\n")
 
-
+# Сортировка методом
 def qsort(a, startElement, endElement):
     # Если левая граница больше правой, то прерываем метод с помощью return
     if (startElement >= endElement):
