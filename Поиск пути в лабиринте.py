@@ -27,7 +27,7 @@ def printLab(a):
         print()
     print()
 
-# Метод поиска пути
+# МЕТОД ПОИСКА ПУТИ
 def findPath(a, x, y, number):
     a[x][y] = number
     if (a[x + 1][y] == 0):                  # Первое условие рекурсии, проверяющее путь ВНИЗ (стенка = -1, проход = 0)
@@ -43,12 +43,35 @@ def findPath(a, x, y, number):
         findPath(a, x - 1, y, number + 1)
 
 
+# ПОЛУЧАЕМ КООРДИНАТЫ НАЙДЕННОГО ПУТИ
+def getRoad(a, x, y):
+    res = []
+
+    res.append([x, y])
+    if (a[x + 1][y] == a[x][y] - 1):
+        return res + getRoad(a, x + 1, y)
+    if (a[x - 1][y] == a[x][y] - 1):
+        return res + getRoad(a, x - 1, y)
+    if (a[x][y + 1] == a[x][y] - 1):
+        return res + getRoad(a, x, y + 1)
+    if (a[x][y - 1] == a[x][y] - 1):
+        return res + getRoad(a, x, y - 1)
+
+    return res
+
 # ОСНОВНОЕ ТЕЛО ПРОГРАММЫ
 
 print("До обработки:")
 printLab(a)
 
-findPath(a, 5, 4, 1)                        # ищем путь ИЗ ТОЧКИ с координатами 1, 1
+findPath(a, 1, 1, 1)                        # ищем путь ИЗ ТОЧКИ с координатами 1, 1
 
 print("После обработки:")
 printLab(a)
+
+road = getRoad(a, 7, 9)                     # Нахождение координат пути для достижения конечной точки (7, 9)
+road.reverse()
+
+print("Координаты пути:")
+for i in road:
+    print(i)
