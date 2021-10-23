@@ -143,9 +143,9 @@ alphabet += "abcdefghijklmnopqrstuvwxyz"
 alphabet += "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЬЭЮЯ"
 alphabet += "абвгдеёжзийклмнопрстуфхцчшщъьэюя"
 
-a = [10, 13, 14, 11, 0, 0] # BEDA
-b = [10, 11, 10, 11, 0, 0] # BABA
-c = summLong(a, b, 16)
+a = [3, 3, 3, 0, 0]
+b = [7, 7, 7, 0, 0]
+c = summLong(a, b, 10)
 
 printData(a)
 printData(b)
