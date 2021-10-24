@@ -279,3 +279,41 @@ print(f"В десятичной системе: {getData(b, base)}")
 print("\nСумма:")
 printData(c)
 print(f"В десятичной системе: {getData(c, base)}")
+
+print("\n")
+# ============================= Функция перевода из 10 - чной в систему счисления х =======================
+
+# Вывод списка на экран
+def printData(a):
+    p = len(a) - 1
+    while (a[p] == 0 and p >= 0):   # (0 == 0 and 4 >= 0) условие верно (Убираем нули в начале числа)
+        p -= 1
+    if (p == -1):
+        print(0)
+    else:
+        for i in range(p, -1, -1):
+            print(alphabet[a[i]], end="")
+        print()
+
+# Перевод из 10-чной в систему счисления х
+def toBase(x, base):
+    ret = []                                    # 1001011
+    while (x > 0):                              # (75 > 0)                  | (37 > 0)
+        ret.append(x % base)                    # ret.append(75 % 2) = 1    | ret.append(37 % 2) = 1
+        x //= base                              # x = 75 // 2 = 37          | x = 37 // 2 = 18
+
+    ret.append(0)
+    ret.append(0)
+    return ret
+
+alphabet = "0123456789"
+alphabet += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+alphabet += "abcdefghijklmnopqrstuvwxyz"
+alphabet += "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЬЭЮЯ"
+alphabet += "абвгдеёжзийклмнопрстуфхцчшщъьэюя"
+
+a = toBase(75, 2)                                # Перевод числа 75 из десятиричной в двоичную
+printData(a)
+
+a = toBase(176, 16)                              # Перевод числа 176 из десятиричной в шестнадцатиричную
+printData(a)
