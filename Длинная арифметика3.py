@@ -151,3 +151,57 @@ printData(a)
 printData(b)
 printData(c)
 
+print("\n")
+# ===================================================================================================
+
+import random
+
+def printData(a):
+    p = len(a) - 1
+    while (a[p] == 0 and p >= 0):   # (0 == 0 and 4 >= 0) условие верно (Убираем нули в начале числа)
+        p -= 1
+    if (p == -1):
+        print(0)
+    else:
+        for i in range(p, -1, -1):
+            print(alphabet[a[i]], end="")
+        print()
+
+def summLong(a, b, base):
+    acopy = a.copy()                # Создаём копию списка = а = в переменную acopy чтобы не изменять оригинал
+    c = []                          # В переменной = c = сохраним результат сложения двух списков
+    for i in range(len(acopy) - 1):
+        summa = acopy[i] + b[i]     # Складываем противоположенные разряды обоих списков ( a(acopy) и b )
+        if (summa >= base):         # Если сумма сложенния двух чисел превышает или равна base ...ричная система исчл.
+            acopy[i + 1] += 1       # То увеличиваем следующую по разрядности цифру на единицу (как при сложении столб.)
+            summa -= base           # Вычитаем из результата base ...ричная система исчисления
+        c.append(summa)             # После каждой итерации добавляем получившийся результат(число) в новый список = с =
+    return c                        # Возвращаем получившийся список
+
+alphabet = "0123456789"
+alphabet += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+alphabet += "abcdefghijklmnopqrstuvwxyz"
+alphabet += "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЬЭЮЯ"
+alphabet += "абвгдеёжзийклмнопрстуфхцчшщъьэюя"
+
+n = 10
+base = 100
+
+a = [random.randint(0, base - 1) for i in range(n)]
+b = [random.randint(0, base - 1) for i in range(n)]
+
+a.append(0)
+a.append(0)
+b.append(0)
+b.append(0)
+
+c = summLong(a, b, base)
+
+print("Первое число:")
+printData(a)
+
+print("\nВторое число:")
+printData(b)
+
+print("\nСумма:")
+printData(c)
