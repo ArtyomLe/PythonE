@@ -34,3 +34,23 @@ def f(w):
 h = [1, 4]
 p = [5, 1]
 print(f(h) - f(p))
+
+print("\n")
+# +++++++++++++++++++++++++++++++
+
+def f(b, k):
+    if (b == k):
+        return 0
+    if (b < k):
+        return k + 3
+    else:
+        return b - 5
+
+v = 3
+m = -6
+for i in range(-6, 3):
+    m = f(m, v)
+    v = f(v, m)
+print(m + v)
+
+# +++++++++++++++++++++++++++++++++
